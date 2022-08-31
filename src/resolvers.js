@@ -2,6 +2,26 @@ const { GraphQLScalarType } = require("graphql");
 
 const resolvers = {
   Query: {
+    getUsaData: async (_, {data}, {dataSources}) => {
+      try{
+        const getUsaData =
+            await dataSources.USADataApi.getUsaData(data);
+          
+          return{
+            code: 200,
+            succes: true,
+            message: `Successfully pulled data from Usa API ${data}`,
+            getUsaData,
+          };
+      } catch (err) {
+          return {
+            code: err.extensions.response.status,
+            success: false,
+            message: err.extensions.response.body,
+            getUsaData: null,
+        }
+      }
+    },
     liveCarbonIntensity: async (_, { zone }, { dataSources }) => {
       try {
         const carbonIntensity =

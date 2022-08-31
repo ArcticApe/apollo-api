@@ -6,6 +6,8 @@ const typeDefs = gql`
   type Query {
     liveCarbonIntensity(zone: String!): LiveCarbonIntensityResponse!
     carbonIntensityHistory(zone: String!): CarbonIntensityHistoryResponse!
+    publicAPI : publicAPIResponse!
+    getUsaData (drilldowns: String!, measures: String!): getUsaData
   }
 
   type LiveCarbonIntensityResponse {
@@ -35,6 +37,30 @@ const typeDefs = gql`
     emissionFactorType: String
     isEstimated: Boolean
     estimationMethod: String
+  }
+
+  type publicAPIResponse {
+    count: Int!
+    entries: [entries!]!
+  }
+
+  type entries {
+    API: String!
+    Description: String
+    Auth: String
+    HTTPS: String
+    Cors: String
+    Link: String
+    Category: String
+  }
+  
+  type getUsaData{
+    IDNation: String
+    Nation: String
+    IDYear: Int
+    Year: Int
+    Population: Int
+    SlugNation: String
   }
 `;
 
