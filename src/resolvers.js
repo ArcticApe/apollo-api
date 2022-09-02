@@ -2,16 +2,16 @@ const { GraphQLScalarType } = require("graphql");
 
 const resolvers = {
   Query: {
-    getUsaData: async (_, {data}, {dataSources}) => {
+    getUsaData: async (_, { drilldowns, measures }, {dataSources}) => {
       try{
-        const getUsaData =
-            await dataSources.USADataApi.getUsaData(data);
-          
+        const getUsaData = 
+          await dataSources.USADataApi.getUsaData(drilldowns, measures);
           return{
             code: 200,
-            succes: true,
-            message: `Successfully pulled data from Usa API ${data}`,
-            getUsaData,
+            success: true,
+            message: `Successfully pulled data from Usa API`,
+            data: getUsaData.data,
+            source: getUsaData.data,
           };
       } catch (err) {
           return {
@@ -62,6 +62,11 @@ const resolvers = {
         };
       }
     },
+  },
+  UsaData: {
+    IDNation: ( parent ) => parent ["ID Nation"],
+    IDYear: ( parent ) => parent ["ID Year"],
+    SlugNation: ( parent ) => parent ["Slug Nation"]
   },
   Date: new GraphQLScalarType({
     name: "Date",

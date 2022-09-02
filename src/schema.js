@@ -6,8 +6,7 @@ const typeDefs = gql`
   type Query {
     liveCarbonIntensity(zone: String!): LiveCarbonIntensityResponse!
     carbonIntensityHistory(zone: String!): CarbonIntensityHistoryResponse!
-    publicAPI : publicAPIResponse!
-    getUsaData (drilldowns: String!, measures: String!): getUsaData
+    getUsaData(drilldowns: String!, measures: String!) : UsaDataResponse!
   }
 
   type LiveCarbonIntensityResponse {
@@ -39,28 +38,38 @@ const typeDefs = gql`
     estimationMethod: String
   }
 
-  type publicAPIResponse {
-    count: Int!
-    entries: [entries!]!
+  type UsaDataResponse {
+    code: Int
+    success: Boolean
+    message: String
+    data: [UsaData!]!
+    source: [Sources!]!
   }
 
-  type entries {
-    API: String!
-    Description: String
-    Auth: String
-    HTTPS: String
-    Cors: String
-    Link: String
-    Category: String
+  type Sources {
+    measures: [String!]!
+    annotations: [AnnotationsDataSet]
+    name: String
+    
   }
-  
-  type getUsaData{
+
+  type UsaData {
     IDNation: String
     Nation: String
     IDYear: Int
-    Year: Int
+    Year: String
     Population: Int
     SlugNation: String
+  }
+
+  type AnnotationsDataSet {
+    source_name: String
+    source_description: String
+    dataset_name: String
+    dataset_link: String
+    table_id: String
+    topic: String
+    subtopic: String
   }
 `;
 

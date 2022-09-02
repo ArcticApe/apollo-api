@@ -4,7 +4,6 @@ const resolvers = require('./resolvers');
 require("dotenv").config();
 
 const ElectricityMapAPI = require('./datasources/electricity-map-api');
-const publicAPI = require('./datasources/PublicAPI');
 const usaDataApi = require('./datasources/USA-API');
 
 const server = new ApolloServer({
@@ -13,7 +12,6 @@ const server = new ApolloServer({
   dataSources: () => {
     return {
       electricityMapAPI: new ElectricityMapAPI(),
-      PublicAPI: new publicAPI(),
       USADataApi: new usaDataApi(),
     };
   }
