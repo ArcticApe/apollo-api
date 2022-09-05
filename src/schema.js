@@ -42,15 +42,8 @@ const typeDefs = gql`
     code: Int
     success: Boolean
     message: String
-    data: [UsaData!]!
-    source: [Sources!]!
-  }
-
-  type Sources {
-    measures: [String!]!
-    annotations: [AnnotationsDataSet]
-    name: String
-    
+    data: [UsaData]
+    sources: [Sources]
   }
 
   type UsaData {
@@ -62,12 +55,19 @@ const typeDefs = gql`
     SlugNation: String
   }
 
+  type Sources {
+    measures: [String]
+    annotations: AnnotationsDataSet
+    name: String
+    substitutions: [String]
+  }
+
   type AnnotationsDataSet {
-    source_name: String
-    source_description: String
-    dataset_name: String
-    dataset_link: String
-    table_id: String
+    sourcename: String
+    sourcedescription: String
+    datasetname: String
+    datasetlink: String
+    tableid: String
     topic: String
     subtopic: String
   }

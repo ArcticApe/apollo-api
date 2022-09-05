@@ -11,14 +11,14 @@ const resolvers = {
             success: true,
             message: `Successfully pulled data from Usa API`,
             data: getUsaData.data,
-            source: getUsaData.data,
+            sources: getUsaData.source,
           };
       } catch (err) {
           return {
             code: err.extensions.response.status,
             success: false,
             message: err.extensions.response.body,
-            getUsaData: null,
+            usaData: null,
         }
       }
     },
@@ -66,8 +66,17 @@ const resolvers = {
   UsaData: {
     IDNation: ( parent ) => parent ["ID Nation"],
     IDYear: ( parent ) => parent ["ID Year"],
-    SlugNation: ( parent ) => parent ["Slug Nation"]
+    SlugNation: ( parent ) => parent ["Slug Nation"],
   },
+
+  AnnotationsDataSet: {
+    sourcename: ( parent ) => parent ["source_name"],
+    sourcedescription: ( parent ) => parent ["source_description"],
+    datasetname: ( parent ) => parent ["dataset_name"],
+    datasetlink: ( parent ) => parent ["dataset_link"],
+    tableid: ( parent ) => parent ["table_id"],
+  },
+
   Date: new GraphQLScalarType({
     name: "Date",
     description: "Date custom scalar type",
