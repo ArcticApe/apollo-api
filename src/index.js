@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const ElectricityMapAPI = require('./datasources/electricity-map-api');
 const usaDataApi = require('./datasources/USA-API');
+const TransportForLondonAPI = require('./datasources/TFL-API');
 
 const server = new ApolloServer({
   typeDefs,
@@ -13,6 +14,7 @@ const server = new ApolloServer({
     return {
       electricityMapAPI: new ElectricityMapAPI(),
       USADataApi: new usaDataApi(),
+      TransportForLondon: new TransportForLondonAPI(),
     };
   }
 });
